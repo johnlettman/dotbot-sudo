@@ -1,0 +1,72 @@
+[project]
+name = "dotbot-sudo"
+version = "0.0.1"
+description = "A Dotbot plugin for running tasks as root"
+authors = [
+    { name = "DrDynamic", email = "github@mweber.me" },
+    { name = "John P. Lettman", email = "the@johnlettman.com" }
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.10,<4.0"
+dependencies = ["dotbot>=1.24.1,<2.0.0"]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+black = "^26.5.1"
+isort = "^8.0.1"
+mypy = "^2.3.0"
+poetry = "^2.4.1"
+poetry-plugin-export = "^1.10.0"
+pytest = "^9.1.1"
+pytest-cov = "^7.1.0"
+ruff = "^0.16.1"
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+include = "\\.pyi?$"
+exclude = """
+(
+  /(
+      .eggs         # exclude a few common directories in the
+    | .git          # root of the project
+    | .hg
+    | .mypy_cache
+    | .tox
+    | .venv
+    | _build
+    | buck-out
+    | build
+    | dist
+  )/
+)
+"""
+
+[tool.isort]
+# compatible with psf/black
+# https://pycqa.github.io/isort/docs/configuration/black_compatibility/
+# https://github.com/psf/black/blob/master/docs/compatible_configs.md
+profile = "black"
+float_to_top = true
+
+
+[tool.pytest.ini_options]
+minversion = "9.0"
+addopts = """
+    -ra
+    -v
+    --strict-markers
+"""
+
+[tool.coverage.run]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+omit = ["tests/*"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
